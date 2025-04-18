@@ -126,26 +126,214 @@ slice(1) → resto de la palabra sin modificar
 console.log("-------------------------");
 
 //1. Escribe una función que tome un array de números como argumento y devuelva la suma de todos sus elementos.
+function sumarElementos(array) {
+    let suma = 0;
+    for (let i = 0; i < array.length; i++) {
+        suma += array[i];
+    }
+    return suma;
+}
+const numeros = [1, 2, 3, 4, 5];
+console.log(sumarElementos(numeros));
 //2. Escribe una función que tome un array de números como argumento y devuelva el promedio de todos sus elementos.
+
+function promedio(array){
+    let suma = 0;
+    for(let i = 0; i < array.length; i++){
+        suma += array[i];
+    } 
+    return suma/array.length;
+}
+console.log(promedio(numeros));
 //3. Escribe una función que tome un array de números como argumento y devuelva el array ordenado de forma ascendente.
+function ordenarAscendente(array) {
+    return array.slice().sort((a, b) => a - b);
+    //slice() se usa para no modificar el array original (hace una copia).
+    //sort((a, b) => a - b) asegura un orden numérico (por defecto sort() ordena como strings).
+}
+const list = [42, 10, 3, 99, 1];
+const ordenados = ordenarAscendente(list);
+console.log(ordenados);
 //4. Escribe una función que tome un array de números y un número como argumentos, y devuelva un nuevo array con los elementos mayores al número dado.
+function filtrarMayoresQue(array, numero) {
+    return array.filter(elemento => elemento > numero);
+  }
+const resultado = filtrarMayoresQue(list, 10);
+console.log(resultado);
+
+/* El símbolo => en JavaScript se llama "arrow function" (función flecha). Es una forma más corta y moderna de escribir funciones.
+📌 Ejemplo tradicional:
+const sumar = function(a, b) {
+  return a + b;
+};
+🔁 Equivalente con arrow function:
+const sumar = (a, b) => a + b; */
+
 //5. Escribe una función que tome dos arrays como argumentos y devuelva un nuevo array con todos los elementos de ambos arrays.
+function combinarArrays(array1, array2) {
+    return array1.concat(array2);
+  }
+const a = [1, 2, 3];
+const b = [4, 5, 6];
+const combinado = combinarArrays(a, b);
+console.log(combinado); 
+
+/* function combinarArrays(array1, array2) {
+    return [...array1, ...array2];
+  } */
 //6. Escribe una función que tome un array de números como argumento y devuelva el número máximo dentro del array.
+//El operador spread (...) “expande” los elementos del array como argumentos individuales para Math.max
+function encontrarMaximo(array) {
+    return Math.max(...array);
+  }
+console.log(encontrarMaximo(list));
+console.log(Math.max(...list));
 //7. Escribe una función que tome un array de números como argumento y devuelva el número mínimo dentro del array.
+function encontrarMinimo(array) {
+    return Math.min(...array);
+  }
+console.log(encontrarMinimo(list));
+console.log(Math.min(...list));
 //8. Escribe una función que tome un array y un elemento como argumentos, y devuelva la cantidad de veces que el elemento aparece en el array.
+function contarOcurrencias(array, elemento) {
+    let contador = 0;
+    for (let item of array) {
+      if (item === elemento) {
+        contador++;
+      }
+    }
+    return contador;
+  }
+/*   function contarOcurrencias(array, elemento) {
+    return array.filter(item => item === elemento).length;
+  } */
+const frutas = ['manzana', 'banana', 'manzana', 'pera', 'manzana'];
+console.log(contarOcurrencias(frutas, "manzana"));
 //9. Escribe una función que tome un array como argumento y devuelva un nuevo array sin elementos duplicados.
+//Opción 1: Usando Set
+function eliminarDuplicados(array) {
+    return [...new Set(array)];
+}
+/*   
+🔍 ¿Qué hace esto?
+Set es una estructura de datos que solo guarda valores únicos. 
+Al hacer new Set(array), automáticamente elimina los duplicados. 
+Luego usamos el operador spread (...) para convertir ese Set de nuevo a un array. */
+const numbers = [1, 2, 2, 3];
+const result = eliminarDuplicados(numbers);
+console.log(result);
+
+//Opción 2: Usando filter() + indexOf()
+function eliminarDuplicados(array) {
+    return array.filter((item, index) => array.indexOf(item) === index);
+  }
+/*   🔍 ¿Cómo funciona?
+  array.filter() recorre cada elemento.
+  array.indexOf(item) devuelve la primera posición donde aparece ese elemento.
+  Si indexOf(item) === index, quiere decir que es la primera vez que aparece → lo dejamos.
+  Si no es la primera vez, lo ignoramos (porque ya lo agregamos antes).
+   */
+  
 //10. Escribe una función que tome un array como argumento y devuelva un nuevo array con los elementos en orden inverso.
+function invertirArray(array) {
+    return array.slice().reverse();
+  }
+
+/*   
+slice() crea una copia del array original (para no modificarlo).
+reverse() invierte el orden de los elementos en esa copia. */
+
+const original = [1, 2, 3, 4, 5];
+const invertido = invertirArray(original);
+console.log(invertido);
+console.log(original);
 
 //## Objetos literales:
 console.log("-------------------------");
 
 //1. Escribe una función que tome un objeto literal con una propiedad "nombre" y devuelva el valor de esa propiedad.
+function obtenerNombre(objeto) {
+    return objeto.nombre;
+}
+const persona = {
+    nombre: "Mariia",
+    edad: 25
+};
+console.log(obtenerNombre(persona));  
 //2. Escribe una función que tome un objeto literal con una propiedad "edad" y un número como argumentos, y actualice el valor de la propiedad "edad" con el número dado.
+function actualizarEdad(objeto, nuevaEdad) {
+    objeto.edad = nuevaEdad;
+    return objeto;
+}
+console.log(actualizarEdad(persona, 30));
 //3. Escribe una función que tome un objeto literal y una cadena de texto como argumentos, y agregue una nueva propiedad al objeto con la cadena de texto como nombre y un valor inicial de null.
+function agregarPropiedad(objeto, nombrePropiedad, valor = null) {
+    objeto[nombrePropiedad] = valor;
+    return objeto;
+  }
+
+  const humano = {
+    nombre: "Vita"
+  };
+  agregarPropiedad(humano, "edad", 29);
+  console.log(humano);
+  // Resultado: { nombre: "Vita", edad: 29 }
+  
+  agregarPropiedad(humano, "ciudad");
+  console.log(humano);
 //4. Escribe una función que tome un objeto literal y una cadena de texto como argumentos, y elimine la propiedad del objeto con el nombre dado.
+function eliminarPropiedad(objeto, nombrePropiedad) {
+    delete objeto[nombrePropiedad];
+    return objeto;
+  }
+  const chica = {
+    nombre: "Ana",
+    edad: 30,
+    ciudad: "Madrid"
+  };
+  
+  eliminarPropiedad(chica, "edad");
+  console.log(chica);
 //5. Escribe una función que tome un objeto literal como argumento y devuelva la cantidad de propiedades que tiene.
+console.log(Object.keys(chica).length);
+/* ¿Qué hace Object.keys()?
+Devuelve un array con los nombres (claves) de las propiedades del objeto.
+Luego usamos .length para contar cuántas son. */
+
 //6. Escribe una función que tome un objeto literal y una cadena de texto como argumentos, y devuelva true si el objeto tiene una propiedad con ese nombre, o false si no la tiene.
+console.log(chica.hasOwnProperty("nombre"));
+console.log("nombre" in chica);
 //7. Escribe una función que tome un objeto literal como argumento y devuelva un array con todos los valores de sus propiedades.
+console.log(Object.values(chica));
 //8. Escribe una función que tome dos objetos literales como argumentos y devuelva true si tienen las mismas propiedades y los mismos valores en esas propiedades, o false si son diferentes.
+function compararObjetos(obj1, obj2) {
+    const claves1 = Object.keys(obj1);
+    const claves2 = Object.keys(obj2);
+  
+    if (claves1.length !== claves2.length) {
+      return false;
+    }
+  
+    for (let clave of claves1) {
+      if (obj1[clave] !== obj2[clave]) {
+        return false;
+      }
+    }
+  
+    return true;
+  }
+const objA = { nombre: "Vita", edad: 25 };
+const objB = { nombre: "Vita", edad: 25 };
+const objC = { nombre: "Vita", edad: 30 };
+
+console.log(compararObjetos(objA, objB));
+console.log(compararObjetos(objA, objC));
 //9. Escribe una función que tome un objeto literal como argumento y devuelva una copia exacta de ese objeto.
+new_objA = {...objA};
+console.log(new_objA);
+
 //10. Escribe una función que tome dos objetos literales como argumentos y devuelva un nuevo objeto con todas las propiedades de ambos objetos. Si hay propiedades con el mismo nombre, el valor del segundo objeto deberá prevalecer.
+const objD = { nombre: "Ana", edad: 25 };
+const objE = { edad: 30, ciudad: "Madrid" };
+const new_objDE = { ...objD, ...objE };
+console.log(new_objDE);
